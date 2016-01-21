@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid: MyString
+  phone_number: MyString
+  confirmation_code: MyString
+  confirmed: false
+
+two:
+  uid: MyString
+  phone_number: MyString
+  confirmation_code: MyString
+  confirmed: false

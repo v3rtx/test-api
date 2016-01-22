@@ -1,13 +1,15 @@
 require 'net/http'
 
 class ApiController < ApplicationController
+  CODE_LENGTH = 4
+
   def phone_attach
     mobile = Mobile.find_by(phone_number: phone_params[:phoneNumber])
 
     if mobile.present? && mobile.confirmed.present? && mobile.confirmed
       render json: {message: 'Already confirmed'}
     elsif phone_params[:code].present?
-      byebug
+
       if mobile.confirmation_code == phone_params[:code]
         mobile.update!(confirmed: true)
         render json: {message: 'Phone confirmed'}
@@ -54,10 +56,10 @@ class ApiController < ApplicationController
 
   def send_confirmation(mobile)
     chars = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
-    code = (0...10).map { chars[rand(chars.length)] }.join
+    code = (0...CODE_LENGTH).map { chars[rand(chars.length)] }.join
 
     api_key = YAML::load_file(Rails.root.join('config', 'secrets.yml'))[Rails.env]['sms_api_key']
-    byebug
+
     api_url = "http://sms.ru/sms/send?api_id=#{api_key}" +
               "&to=#{mobile.phone_number}&text=Confirmation+code:+#{code}"
     uri = URI(api_url)

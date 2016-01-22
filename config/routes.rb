@@ -55,11 +55,11 @@ Rails.application.routes.draw do
   #   end
   resources :api, only: [] do
     collection do
-      get 'phoneAttach',       action: :phone_attach
-      get 'phoneAttachCode',   action: :phone_attach
-      get 'phoneDeattach',     action: :phone_deattach
-      get 'phoneDeattachCode', action: :phone_deattach
-      get 'convert',           action: :convert
+      get  'phoneAttach',       action: :phone_attach
+      get  'phoneAttachCode',   action: :phone_attach
+      get  'phoneDeattach',     action: :phone_deattach
+      get  'phoneDeattachCode', action: :phone_deattach
+      post 'convert',           action: :convert
     end
   end
 end

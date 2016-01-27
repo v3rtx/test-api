@@ -52,8 +52,7 @@ class ApiLogicProcessor
     api_url = "http://sms.ru/sms/send?api_id=#{api_key}" +
               "&to=#{mobile.phone_number}&text=Confirmation+code:+#{code}"
     uri = URI(api_url)
-    # TODO: uncomment
-    # response = Net::HTTP.get(uri)
+    response = Net::HTTP.get(uri)
     code
   end
 

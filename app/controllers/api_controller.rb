@@ -16,6 +16,9 @@ class ApiController < ApplicationController
         render json: {message: 'Confirmation code is incorrect'}
       end
     else
+      if !mobile.nil?
+        mobile.destroy!
+      end
       mobile = Mobile.new(uid: phone_params[:id], phone_number: phone_params[:phoneNumber])
       unless mobile.save
         render json: {errors: mobile.errors.to_a.join("\n")}
@@ -47,7 +50,7 @@ class ApiController < ApplicationController
     end
   end
 
-  def convert
+  def convertPhone
     res = []
     Mobile.where(phone_number: contacts_params[:phones], confirmed: true).each do |mob|
       res << {phone: mob.phone_number, id: mob.uid}
@@ -55,6 +58,13 @@ class ApiController < ApplicationController
     render json: {contacts: res}
   end
 
+  def convertId
+    res = []
+    Mobile.where(uid: contacts_params2[:ids], confirmed: true).each do |mob|
+      res << {phone: mob.phone_number, id: mob.uid}
+    end
+    render json: {contacts: res}
+  end
   private
 
   def send_confirmation(mobile)
@@ -76,5 +86,9 @@ class ApiController < ApplicationController
 
   def contacts_params
     params.permit(phones: [])
+  end
+
+  def contacts_params2
+    params.permit(ids: [])
   end
 end

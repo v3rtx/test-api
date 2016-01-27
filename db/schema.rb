@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121214454) do
+ActiveRecord::Schema.define(version: 20160127231447) do
 
   create_table "mobiles", force: :cascade do |t|
     t.string   "uid"
     t.string   "phone_number"
     t.string   "confirmation_code"
-    t.boolean  "confirmed"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.boolean  "confirmed",         default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
 end

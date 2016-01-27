@@ -9,7 +9,6 @@ class ApiController < ApplicationController
     if mobile.present? && mobile.confirmed.present? && mobile.confirmed
       render json: {message: 'Already confirmed'}
     elsif phone_params[:code].present?
-
       if mobile.confirmation_code == phone_params[:code]
         mobile.update!(confirmed: true)
         render json: {message: 'Phone confirmed'}
@@ -18,6 +17,10 @@ class ApiController < ApplicationController
       end
     else
       mobile = Mobile.new(uid: phone_params[:id], phone_number: phone_params[:phoneNumber])
+      unless mobile.save
+        render json: {errors: mobile.errors.to_a.join("\n")}
+        return
+      end
       mobile.confirmation_code = send_confirmation(mobile)
       mobile.save!
       render json: {message: 'Confirmation send'}

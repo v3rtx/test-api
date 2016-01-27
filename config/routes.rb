@@ -59,7 +59,8 @@ Rails.application.routes.draw do
       get  'phoneAttachCode',   action: :phone_attach
       get  'phoneDeattach',     action: :phone_deattach
       get  'phoneDeattachCode', action: :phone_deattach
-      post 'convert',           action: :convert
+      post 'convertPhone',      action: :convertPhone
+      post 'convertId',         action: :convertId
     end
   end
 end

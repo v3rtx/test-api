@@ -91,7 +91,7 @@ class ApiLogicProcessor
   def self.phone_deattach_finish(mobile, phone_params)
     if mobile.confirmation_code == phone_params[:code]
       mobile.destroy!
-      {message: 'Phone deatached'}
+      {message: 'Phone confirmed'}
     else
       {message: 'Confirmation code is incorrect'}
     end

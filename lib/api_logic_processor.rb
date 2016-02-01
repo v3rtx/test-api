@@ -1,7 +1,7 @@
 require 'net/http'
 
 class ApiLogicProcessor
-  CODE_LENGTH = 4
+  CODE_LENGTH = 6
 
   def self.phone_attach(mobile, phone_params)
     if mobile.present? && mobile.confirmed?
@@ -40,7 +40,7 @@ class ApiLogicProcessor
   protected
 
   def self.generate_code
-    chars = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    chars = [('0'..'9')].map { |i| i.to_a }.flatten
     (0...CODE_LENGTH).map { chars[rand(chars.length)] }.join
   end
 
